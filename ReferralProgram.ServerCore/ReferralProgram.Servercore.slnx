@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="ReferralProgram.Servercore/ReferralProgram.Servercore.csproj" />
+  <Project Path="ReferralProgram.Tests/ReferralProgram.Tests.csproj" Id="02de45c7-5ed1-4270-a445-6bfff071ea8f" />
 </Solution>

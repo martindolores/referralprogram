@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.EntityFrameworkCore;
+using ReferralProgram.Servercore.Data;
 using ReferralProgram.Servercore.Services;
 using System.Threading.RateLimiting;
 
@@ -40,11 +42,35 @@ builder.Services.AddRateLimiter(options =>
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 });
 
-// Register services (using mock implementations for now)
-builder.Services.AddSingleton<ISmsService, MockSmsService>();
-builder.Services.AddSingleton<IReferralService, MockReferralService>();
+// Add SQLite Database
+builder.Services.AddDbContext<ReferralDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register services based on configuration
+var useMockServices = builder.Configuration.GetValue<bool>("UseMockServices");
+
+if (useMockServices)
+{
+    // Use mock services for development/testing
+    builder.Services.AddSingleton<ISmsService, MockSmsService>();
+    builder.Services.AddSingleton<IReferralService, MockReferralService>();
+}
+else
+{
+    // Use real services for production
+    builder.Services.Configure<TwilioSettings>(builder.Configuration.GetSection("Twilio"));
+    builder.Services.AddScoped<ISmsService, TwilioSmsService>();
+    builder.Services.AddScoped<IReferralService, SqliteReferralService>();
+}
 
 var app = builder.Build();
+
+// Ensure database is created and apply migrations
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ReferralDbContext>();
+    dbContext.Database.EnsureCreated();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -63,3 +89,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Make Program class accessible for integration tests
+public partial class Program { }
