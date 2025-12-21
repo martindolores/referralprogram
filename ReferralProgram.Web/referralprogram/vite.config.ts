@@ -7,9 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000", // Your ASP.NET Core API URL
+        target: "https://localhost:7294",
         changeOrigin: true,
-        secure: false,
+        secure: false, // Allow self-signed certificates
       },
     },
   },
