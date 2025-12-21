@@ -10,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
+// Add Swagger generation
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 // Add CORS for React frontend (Netlify)
 builder.Services.AddCors(options =>
 {
@@ -76,6 +80,14 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    
+    // Enable Swagger UI dashboard in development
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Referral Program API v1");
+        options.RoutePrefix = "swagger"; // Access at /swagger
+    });
 }
 
 app.UseHttpsRedirection();
