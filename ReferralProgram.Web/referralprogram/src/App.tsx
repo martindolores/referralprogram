@@ -50,14 +50,7 @@ function App() {
           <Header
             style={{ display: "flex", alignItems: "center", padding: "0 24px" }}
           >
-            <div
-              style={{
-                color: "white",
-                fontSize: 20,
-                fontWeight: "bold",
-                marginRight: 24,
-              }}
-            >
+            <div className="header-brand">
               🍰 Lorna's Baked Delights
             </div>
             <Menu
@@ -70,8 +63,8 @@ function App() {
             />
           </Header>
 
-          <Content style={{ padding: "24px 48px" }}>
-            <div style={{ maxWidth: 600, margin: "0 auto" }}>
+          <Content>
+            <div className="page-container">
               {currentPage === "refer" && <ReferralForm />}
               {currentPage === "admin" && <AdminPanel />}
             </div>

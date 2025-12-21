@@ -1,3 +1,10 @@
+/* Base styles */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
 .referral-card,
 .admin-card {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -5,8 +12,20 @@
 }
 
 .referral-card {
-  max-width: 480px;
+  max-width: 100%;
   margin: 0 auto;
+}
+
+.admin-card {
+  max-width: 100%;
+}
+
+/* Page container - responsive width */
+.page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
 }
 
 /* Custom styling for Ant Design components */
@@ -59,17 +78,72 @@
   font-size: 14px;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .ant-layout-content {
-    padding: 16px !important;
-  }
+/* Header brand */
+.header-brand {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: auto;
+  white-space: nowrap;
+}
 
+/* Right-align menu items */
+.ant-menu-horizontal {
+  justify-content: flex-end;
+}
+
+/* Desktop styles */
+@media (min-width: 992px) {
+  .page-container {
+    padding: 48px 64px;
+    max-width: 100%;
+  }
+  
+  .referral-card {
+    max-width: 600px;
+  }
+  
+  .admin-card {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 991px) {
+  .page-container {
+    padding: 32px;
+  }
+  
+  .referral-card {
+    max-width: 480px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .page-container {
+    padding: 16px;
+  }
+  
   .ant-layout-header {
-    padding: 0 16px !important;
+    padding: 0 12px !important;
   }
 
-  .ant-layout-header > div:first-child {
-    font-size: 16px !important;
+  .header-brand {
+    font-size: 14px !important;
+    margin-right: 12px;
+  }
+  
+  .ant-menu-horizontal {
+    font-size: 12px;
+  }
+  
+  .ant-menu-item {
+    padding: 0 8px !important;
+  }
+  
+  .ant-result-icon .anticon {
+    font-size: 48px;
   }
 }
