@@ -51,15 +51,11 @@ export function AdminPanel() {
     },
   });
 
-  // TODO: Replace with generated query from codegen
-  // import { useGetApiAdminReferralByReferralCode } from '../api/queries';
-
   const onSearch = async (data: SearchFormData) => {
     setIsSearching(true);
     setHasSearched(true);
     try {
-      // TODO: Replace with actual API call after codegen
-      const response = await fetch(`/api/admin/referral/${data.referralCode}`);
+      const response = await fetch(`/api/referral/${data.referralCode}`);
 
       if (response.ok) {
         const details: ReferralDetails = await response.json();
@@ -76,15 +72,11 @@ export function AdminPanel() {
     }
   };
 
-  // TODO: Replace with generated mutation from codegen
-  // import { usePostApiAdminRedeemMutation } from '../api/queries';
-
   const handleRedeem = async () => {
     if (!referralDetails) return;
 
     setIsRedeeming(true);
     try {
-      // TODO: Replace with actual API call after codegen
       const response = await fetch("/api/admin/redeem", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
