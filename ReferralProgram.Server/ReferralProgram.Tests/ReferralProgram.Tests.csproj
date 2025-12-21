@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReferralProgram.Servercore\ReferralProgram.Servercore.csproj" />
+    <ProjectReference Include="..\ReferralProgram.Servercore\ReferralProgram.ServerCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
